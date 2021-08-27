@@ -1,9 +1,3 @@
-///
-/// Paradigm Shift by HTML5 UP
-/// html5up.net | @ajlkn
-/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-///
-
 /* Button */
 
 	input[type="submit"],
@@ -17,48 +11,30 @@
 			'box-shadow #{_duration(transition)} ease-in-out',
 			'color #{_duration(transition)} ease-in-out'
 		));
-		background-color: transparent;
-		border-radius: _size(border-radius);
 		border: 0;
-		box-shadow: inset 0 0 0 2px _palette(border);
-		color: _palette(fg-bold) !important;
+		border-radius: _size(border-radius);
 		cursor: pointer;
 		display: inline-block;
-		font-family: _font(family-heading);
-		font-size: 0.6rem;
-		font-weight: _font(weight-heading-light);
-		height: (_size(element-height) * 1);
-		letter-spacing: _font(kerning-heading);
-		line-height: (_size(element-height) * 1);
-		padding: 0 2rem;
+		font-weight: _font(weight-bold);
+		height: _size(element-height);
+		line-height: _size(element-height);
+		padding: 0 1.75rem;
 		text-align: center;
 		text-decoration: none;
-		text-transform: uppercase;
 		white-space: nowrap;
 
-		&:hover {
-			box-shadow: inset 0 0 0 2px _palette(accent-alt);
-			color: _palette(accent-alt) !important;
-		}
-
-		&:active {
-			background-color: _palette(accent-bg);
-			box-shadow: inset 0 0 0 2px _palette(accent-alt);
-			color: _palette(accent-alt) !important;
-		}
-
 		&.small {
-			font-size: 0.5rem;
+			font-size: 0.8rem;
 			height: _size(element-height) * 0.75;
 			line-height: _size(element-height) * 0.75;
 			padding: 0 1.25rem;
 		}
 
 		&.large {
-			font-size: 0.7rem;
-			height: _size(element-height) * 1.0875;
-			line-height: _size(element-height) * 1.0875;
-			padding: 0 3.25rem;
+			font-size: 1.35rem;
+			height: _size(element-height) * 1.25;
+			line-height: _size(element-height) * 1.25;
+			padding: 0 2rem;
 		}
 
 		&.wide {
@@ -80,36 +56,71 @@
 			@include vendor('pointer-events', 'none');
 			opacity: 0.25;
 		}
+	}
 
-		&.primary {
-			background-color: _palette(accent);
-			box-shadow: none;
-			color: _palette(fg-bold) !important;
+	@mixin color-button($p: null) {
+		$highlight: _palette($p, highlight);
 
-			&:hover {
-				background-color: saturate(lighten(_palette(accent), 15), 10);
+		input[type="submit"],
+		input[type="reset"],
+		input[type="button"],
+		button,
+		.button {
+			background-color: transparent;
+			box-shadow: inset 0 0 0 1px _palette($p, fg-bold);
+			color: _palette($p, fg-bold) !important;
+
+			@if ($p == $highlight) {
+				&:hover {
+					background-color: transparentize(_palette($p, fg-bold), 0.9);
+
+					&:active {
+						background-color: transparentize(_palette($p, fg-bold), 0.75);
+					}
+				}
+			}
+			@else {
+				&:hover {
+					box-shadow: inset 0 0 0 1px _palette($highlight, bg);
+					color: _palette($highlight, bg) !important;
+
+					&:active {
+						background-color: transparentize(_palette($highlight, bg), 0.75);
+					}
+				}
 			}
 
-			&:active {
-				background-color: desaturate(darken(_palette(accent), 3), 10);
-			}
-		}
+			&.primary {
+				box-shadow: none;
 
-		@include breakpoint('<=small') {
-			font-size: 0.7rem;
-			height: (_size(element-height) * 1.1);
-			line-height: (_size(element-height) * 1.1);
+				@if $p == $highlight {
+					background-color: _palette($p, fg-bold);
+					color: _palette($p, bg) !important;
 
-			&.large {
-				font-size: 0.8rem;
-				height: _size(element-height) * 1.25;
-				line-height: _size(element-height) * 1.25;
-			}
+					&:hover {
+						background-color: transparentize(_palette($p, fg-bold), 0.125);
+						box-shadow: none;
 
-			&.small {
-				font-size: 0.6rem;
-				height: (_size(element-height) * 1);
-				line-height: (_size(element-height) * 1);
+						&:active {
+							background-color: transparentize(_palette($p, fg-bold), 0.5);
+						}
+					}
+				}
+				@else {
+					background-color: _palette($highlight, bg);
+					color: _palette($highlight, fg-bold) !important;
+
+					&:hover {
+						background-color: lighten(_palette($highlight, bg), 5);
+						box-shadow: none;
+
+						&:active {
+							background-color: darken(_palette($highlight, bg), 5);
+						}
+					}
+				}
 			}
 		}
 	}
+
+	@include color-button;
